@@ -1,6 +1,6 @@
 package ru.sibsutis.modern;
 
-public class Lab2 {
+public class Lab2 implements Lab {
 
     public static double max(double a, double b) {
         if (a > b) {
@@ -52,5 +52,10 @@ public class Lab2 {
         }
 
         return min;
+    }
+
+    @Override
+    public void execute() {
+        System.out.println("Hello!");
     }
 }

@@ -1,7 +1,7 @@
 package ru.sibsutis.modern;
 
 public class Lab3 implements Lab {
-    static Integer radixCreator(Integer a) {
+    public static Integer radixCreator(Integer a) {
         if (a == 0) {
             return 0;
         }
@@ -16,17 +16,42 @@ public class Lab3 implements Lab {
         temp = Math.abs(a);
         StringBuilder digits = new StringBuilder();
 
-        for (int position = 1; position <= digitCount; position++) {
-            int power = digitCount - position;
-            int digit = temp / (int)Math.pow(10, power) % 10;
-
-            if (position % 2 != 0) {
-                digits.append(digit);
-            }
+        for (int position = digitCount; position > 0; position--) {
+            if ((digitCount - position + 1) % 2 == 0)
+                continue;
+            int digit = digit(temp, position, digitCount);
+            digits.append(digit);
         }
 
         String resultStr = digits.toString();
         return resultStr.isEmpty() ? 0 : Integer.parseInt(resultStr);
+    }
+
+    public static int maxEvenInEvenPos(int n) {
+        if (n == 0) {
+            return -1;
+        }
+
+        int temp = Math.abs(n);
+        int position = 1;
+        int maxDigit = -1;
+        int maxPosition = -1;
+
+        while (temp > 0) {
+            int digit = temp % 10;
+
+            if (position % 2 == 0 && digit % 2 == 0) {
+                if (digit > maxDigit) {
+                    maxDigit = digit;
+                    maxPosition = position;
+                }
+            }
+
+            temp /= 10;
+            position++;
+        }
+
+        return maxDigit;
     }
 
     public static int cyclicShiftRight(int n, int positions) {
@@ -82,12 +107,16 @@ public class Lab3 implements Lab {
         System.out.println("cyclicShiftRight(123456, 2) = " + cyclicShiftRight(123456, 2)); // 561234
         System.out.println("cyclicShiftRight(123, 1) = " + cyclicShiftRight(123, 1)); // 312
 
-        // Тест четвертой функции
         int[][] testArray = {
                 {1, 2, 3},
                 {4, 5, 6},
                 {7, 8, 9}
         };
         System.out.println("sumEvenElements(testArray) = " + sumEvenElements(testArray)); // 2+4+6+8 = 20
+    }
+
+    private static int digit(int a, int pos, int digitLength) {
+        int power = digitLength - pos;
+        return (a % (int)Math.pow(10, power + 1)) / (int)Math.pow(10, power);
     }
 }
