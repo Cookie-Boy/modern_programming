@@ -174,15 +174,12 @@ class TPNumberTest {
 
     @Test
     public void testGetNumberString_EdgeCases() {
-        // Нулевое значение
         TPNumber zero = new TPNumber(0.0, 10, 2);
         assertEquals("0.00", zero.getNumberString());
 
-        // Только целая часть
         TPNumber integerOnly = new TPNumber(15.0, 10, 0);
         assertEquals("15", integerOnly.getNumberString());
 
-        // Только дробная часть
         TPNumber fractionalOnly = new TPNumber(0.75, 10, 2);
         assertEquals("0.75", fractionalOnly.getNumberString());
     }
@@ -199,7 +196,6 @@ class TPNumberTest {
 
     @Test
     public void testCommaSeparator() {
-        // Тест с запятой как разделителем дробной части
         TPNumber num = new TPNumber("10,75", "10", "2");
         assertEquals(10.75, num.getNum(), 0.001);
     }

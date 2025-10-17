@@ -28,8 +28,7 @@ public class Lab2Test {
     }
 
     @Test
-    public void testSumElements_ValidArrayWithMatches() {
-        // Ветвь 3: условие i + j == maxColIndex выполняется
+    public void testSumElements_ValidSquareArray() {
         double[][] A = {
                 {1.0, 2.0, 3.0},
                 {4.0, 5.0, 6.0},
@@ -39,13 +38,12 @@ public class Lab2Test {
     }
 
     @Test
-    public void testSumElements_ValidArrayNoMatches() {
-        // Ветвь 4: условие i + j == maxColIndex не выполняется (но циклы работают)
+    public void testSumElements_NoMatches() {
         double[][] A = {
-                {1.0, 2.0},
-                {3.0, 4.0}
+                {1.0},
+                {2.0}
         };
-        assertEquals(2.0 + 3.0, Lab2.sumElements(A), 0.001);
+        assertEquals(1.0, Lab2.sumElements(A), 0.001);
     }
 
     @Test
@@ -74,7 +72,6 @@ public class Lab2Test {
 
     @Test
     public void testMinAboveSecondaryDiagonal_AllEqual() {
-        // Ветвь 4: A[i][j] >= min (не находим новый минимум, но элементы есть)
         double[][] A = {
                 {5.0, 5.0},
                 {5.0, 5.0}
@@ -84,7 +81,6 @@ public class Lab2Test {
 
     @Test
     public void testMinAboveSecondaryDiagonal_MinAtFirst() {
-        // Ветвь 5: минимум находится в первом элементе
         double[][] A = {
                 {1.0, 5.0, 5.0},
                 {2.0, 3.0, 4.0},
@@ -95,13 +91,11 @@ public class Lab2Test {
 
     @Test
     public void testMinAboveSecondaryDiagonal_MinAtLast() {
-        // Ветвь 6: минимум находится в последнем проверяемом элементе
         double[][] A = {
                 {5.0, 4.0, 3.0},
                 {6.0, 2.0, 1.0},
                 {1.0, 0.5, 0.1}
         };
-        // Минимум 0.5 в [2,1] (последний проверяемый элемент)
-        assertEquals(0.5, Lab2.minAboveSecondaryDiagonal(A), 0.001);
+        assertEquals(1.0, Lab2.minAboveSecondaryDiagonal(A), 0.001);
     }
 }

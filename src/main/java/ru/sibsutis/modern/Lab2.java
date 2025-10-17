@@ -1,5 +1,6 @@
 package ru.sibsutis.modern;
 
+// Вариант 2
 public class Lab2 implements Lab {
 
     public static double max(double a, double b) {
@@ -15,10 +16,17 @@ public class Lab2 implements Lab {
             return 0.0;
         }
 
-        int maxColIndex = A[0].length - 1;
+        int maxColIndex = 0;
+        for (double[] row : A) {
+            if (row.length - 1 > maxColIndex) {
+                maxColIndex = row.length - 1;
+            }
+        }
+
         double sum = 0.0;
 
         for (int i = 0; i < A.length; i++) {
+
             for (int j = 0; j < A[i].length; j++) {
                 if (i + j == maxColIndex) {
                     sum += A[i][j];

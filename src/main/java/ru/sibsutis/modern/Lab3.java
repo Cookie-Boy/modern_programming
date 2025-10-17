@@ -1,5 +1,6 @@
 package ru.sibsutis.modern;
 
+// Вариант 3
 public class Lab3 implements Lab {
     public static Integer radixCreator(Integer a) {
         if (a == 0) {

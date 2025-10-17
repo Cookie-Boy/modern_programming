@@ -1,5 +1,6 @@
 package ru.sibsutis.modern;
 
+// Вариант 1
 public class Lab1 implements Lab {
     public static double oddMultiply(double[] array) {
         if (array == null || array.length < 2)
