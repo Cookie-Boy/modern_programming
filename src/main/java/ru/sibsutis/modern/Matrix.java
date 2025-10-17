@@ -53,23 +53,6 @@ public class Matrix {
         return data[i][j];
     }
 
-    public Matrix set(int i, int j, int value) {
-        if (i < 0 || i >= rows) {
-            throw new IllegalArgumentException("неверное значение i = " + i);
-        }
-        if (j < 0 || j >= cols) {
-            throw new IllegalArgumentException("неверное значение j = " + j);
-        }
-
-        int[][] newData = new int[rows][cols];
-        for (int x = 0; x < rows; x++) {
-            System.arraycopy(data[x], 0, newData[x], 0, cols);
-        }
-        newData[i][j] = value;
-
-        return new Matrix(newData);
-    }
-
     public Matrix add(Matrix other) {
         if (this.rows != other.rows || this.cols != other.cols) {
             throw new IllegalArgumentException("Размеры матриц должны совпадать для сложения");
@@ -114,7 +97,6 @@ public class Matrix {
         return new Matrix(result);
     }
 
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
@@ -134,18 +116,6 @@ public class Matrix {
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = rows;
-        result = 31 * result + cols;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                result = 31 * result + data[i][j];
-            }
-        }
-        return result;
-    }
-
     public Matrix transpose() {
         int[][] result = new int[cols][rows];
         for (int i = 0; i < rows; i++) {
@@ -157,10 +127,6 @@ public class Matrix {
     }
 
     public int min() {
-        if (rows == 0 || cols == 0) {
-            throw new IllegalStateException("Матрица пуста");
-        }
-
         int min = data[0][0];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -172,7 +138,6 @@ public class Matrix {
         return min;
     }
 
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
