@@ -32,15 +32,6 @@ public class TPNumber {
     }
 
     private double parseNum(double a, int b, int c) {
-//        int integerPart = (int)a;
-//        double fractPart = Math.abs(a - integerPart);
-//        double result = Integer.parseInt(String.valueOf(integerPart), b);
-//        for(int i = 0; i < c; i++) {
-//            int num = (int)(fractPart * 10);
-//            if(num >= b)
-//                throw new NumberFormatException();
-//            result += num * Math.pow(1.0 / b, i + 1);
-//        }
         return parseNum(String.valueOf(a), b, c);
     }
     private double parseNum(String a, int b, int c) {
@@ -51,7 +42,7 @@ public class TPNumber {
         double result = Integer.parseInt(parts[0], b);
         double num;
         if(parts.length == 2) {
-            for(int i = 0; i < c && i < parts[i].length(); i++) {
+            for(int i = 0; i < c && i < parts[1].length(); i++) {
                 if(parts[1].charAt(i) < '9')
                     num = parts[1].charAt(i) - '0';
                 else
@@ -78,7 +69,7 @@ public class TPNumber {
     }
 
     public TPNumber copy() {
-        return new TPNumber(this.num, this.base, this.c);
+        return new TPNumber(convertToBase(this.num, this.base, this.c), String.valueOf(this.base), String.valueOf(this.c));
     }
 
     public TPNumber add(TPNumber d) {
