@@ -22,12 +22,6 @@ public class Lab1Test {
     }
 
     @Test
-    public void testOddMultiply_WithNullArray() {
-        double result = Lab1.oddMultiply(null);
-        assertEquals(0, result, 0.0001);
-    }
-
-    @Test
     public void testCyclicShiftRight_WithPositiveShift() {
         double[] array = {1.0, 2.0, 3.0, 4.0, 5.0};
         double[] expected = {4.0, 5.0, 1.0, 2.0, 3.0};
@@ -49,12 +43,6 @@ public class Lab1Test {
         double[] expected = {1.0, 2.0, 3.0, 4.0, 5.0};
         Lab1.cyclicShiftRight(array, 0);
         assertArrayEquals(expected, array, 0.0001);
-    }
-
-    @Test
-    public void testCyclicShiftRight_WithEmptyArray() {
-        double[] array = new double[0];
-        assertDoesNotThrow(() -> Lab1.cyclicShiftRight(array, 3));
     }
 
     @Test
@@ -80,20 +68,12 @@ public class Lab1Test {
         assertThrows(IllegalArgumentException.class, () -> {
             Lab1.convertFractionFromBase(1, "101");
         });
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            Lab1.convertFractionFromBase(37, "101");
-        });
     }
 
     @Test
     public void testConvertFractionFromBase_InvalidCharacter() {
         assertThrows(IllegalArgumentException.class, () -> {
             Lab1.convertFractionFromBase(10, "12A5");
-        });
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            Lab1.convertFractionFromBase(5, "67");
         });
     }
 

@@ -16,13 +16,7 @@ public class Lab2 implements Lab {
             return 0.0;
         }
 
-        int maxColIndex = 0;
-        for (double[] row : A) {
-            if (row.length - 1 > maxColIndex) {
-                maxColIndex = row.length - 1;
-            }
-        }
-
+        int maxColIndex = A[0].length - 1;
         double sum = 0.0;
 
         for (int i = 0; i < A.length; i++) {
@@ -44,19 +38,11 @@ public class Lab2 implements Lab {
 
         int n = A.length;
         double min = Double.MAX_VALUE;
-        boolean found = false;
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n - i; j++) {
-                if (A[i][j] < min) {
-                    min = A[i][j];
-                    found = true;
-                }
+                if (A[i][j] < min) min = A[i][j];
             }
-        }
-
-        if (!found) {
-            throw new IllegalArgumentException("Нет элементов на или выше побочной диагонали");
         }
 
         return min;

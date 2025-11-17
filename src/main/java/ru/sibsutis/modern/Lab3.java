@@ -36,7 +36,6 @@ public class Lab3 implements Lab {
         int temp = Math.abs(n);
         int position = 1;
         int maxDigit = -1;
-        int maxPosition = -1;
 
         while (temp > 0) {
             int digit = temp % 10;
@@ -44,7 +43,6 @@ public class Lab3 implements Lab {
             if (position % 2 == 0 && digit % 2 == 0) {
                 if (digit > maxDigit) {
                     maxDigit = digit;
-                    maxPosition = position;
                 }
             }
 
@@ -72,17 +70,12 @@ public class Lab3 implements Lab {
             return Math.abs(n);
         }
 
-
         int divisor = (int) Math.pow(10, positions);
         int rightPart = Math.abs(n) % divisor;
         int leftPart = Math.abs(n) / divisor;
 
-
-        int result = rightPart * (int) Math.pow(10, digitCount - positions) + leftPart;
-
-        return result;
+        return rightPart * (int) Math.pow(10, digitCount - positions) + leftPart;
     }
-
 
     public static int sumEvenElements(int[][] A) {
         if (A == null) {

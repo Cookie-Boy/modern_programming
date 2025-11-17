@@ -99,8 +99,7 @@ public class Matrix {
 
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-
+        if (obj == null || this.getClass() != obj.getClass()) return false;
         Matrix other = (Matrix) obj;
         if (this.rows != other.rows || this.cols != other.cols) {
             return false;
