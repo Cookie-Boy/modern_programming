@@ -1,121 +1,141 @@
 package ru.sibsutis.modern;
 
 import org.junit.jupiter.api.Test;
+import ru.sibsutis.modern.lab6.TEditor;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TEditorTest {
 
     @Test
-    public void testInitialZero() {
-        TEditor ed = new TEditor();
-        assertEquals("0, i* 0,", ed.getString());
-        assertTrue(ed.isZero());
+    void testClear() {
+        TEditor e = new TEditor();
+        e.addDigit(3);
+        e.clear();
+        assertEquals(TEditor.ZERO, e.read());
     }
 
     @Test
-    public void testAddDigitReal() {
-        TEditor ed = new TEditor();
-        ed.addDigit(5);
-        assertEquals("5, i* 0,", ed.getString());
+    void testIsZero() {
+        TEditor e = new TEditor();
+        assertTrue(e.isZero());
+        e.addDigit(5);
+        assertFalse(e.isZero());
     }
 
     @Test
-    public void testAddDigitImag() {
-        TEditor ed = new TEditor();
-        ed.addImaginarySeparator();
-        ed.addDigit(7);
-        assertEquals("0, i* 7,", ed.getString());
+    void testAddDigit() {
+        TEditor e = new TEditor();
+        e.addDigit(7);
+        assertTrue(e.read().endsWith("7"));
     }
 
     @Test
-    public void testAddZeroReal() {
-        TEditor ed = new TEditor();
-        ed.addDigit(3);
-        ed.addZero();
-        assertEquals("30, i* 0,", ed.getString());
+    void testAddDigitInvalid() {
+        TEditor e = new TEditor();
+        assertThrows(IllegalArgumentException.class, () -> e.addDigit(12));
     }
 
     @Test
-    public void testAddZeroImag() {
-        TEditor ed = new TEditor();
-        ed.addImaginarySeparator();
-        ed.addDigit(3);
-        ed.addZero();
-        assertEquals("0, i* 30,", ed.getString());
+    void testAddZero() {
+        TEditor e = new TEditor();
+        e.addZero();
+        assertTrue(e.read().endsWith("0"));
     }
 
     @Test
-    public void testAddDotReal() {
-        TEditor ed = new TEditor();
-        ed.addDot();
-        ed.addDigit(5);
-        assertEquals("0.5, i* 0,", ed.getString());
+    void testToggleRealSign() {
+        TEditor e = new TEditor();
+        e.toggleRealSign();
+        assertTrue(e.read().startsWith("-"));
+        e.toggleRealSign();
+        assertFalse(e.read().startsWith("-"));
     }
 
     @Test
-    public void testAddDotImag() {
-        TEditor ed = new TEditor();
-        ed.addImaginarySeparator();
-        ed.addDot();
-        ed.addDigit(8);
-        assertEquals("0, i* 0.8,", ed.getString());
+    void testToggleImagSign() {
+        TEditor e = new TEditor();
+        assertTrue(e.read().contains(" +i "));
+        e.toggleImagSign();
+        assertTrue(e.read().contains(" -i "));
+        e.toggleImagSign();
+        assertTrue(e.read().contains(" +i "));
     }
 
     @Test
-    public void testAddSignReal() {
-        TEditor ed = new TEditor();
-        ed.addDigit(4);
-        ed.addSign();
-        assertEquals("-4, i* 0,", ed.getString());
+    void testFractionSeparatorReal() {
+        TEditor e = new TEditor();
+        e.write("2,");
+        e.addFractionSeparator();
+        assertTrue(e.read().startsWith("2,,"));
     }
 
     @Test
-    public void testAddSignImag() {
-        TEditor ed = new TEditor();
-        ed.addImaginarySeparator();
-        ed.addDigit(6);
-        ed.addSign();
-        assertEquals("0, i* -6,", ed.getString());
+    void testFractionSeparatorRealOnlyOnce() {
+        TEditor e = new TEditor();
+        e.addFractionSeparator();
+        String before = e.read();
+        e.addFractionSeparator();
+        assertEquals(before, e.read());
     }
 
     @Test
-    public void testSeparator() {
-        TEditor ed = new TEditor();
-        ed.addImaginarySeparator();
-        assertEquals("0, i* 0,", ed.getString());
+    void testFractionSeparatorImag() {
+        TEditor e = new TEditor();
+        e.addPartsSeparator();
+        e.addFractionSeparator();
+        assertTrue(e.read().contains("i 0,,"));
     }
 
     @Test
-    public void testBackspaceReal() {
-        TEditor ed = new TEditor();
-        ed.addDigit(1);
-        ed.addDigit(2);
-        ed.backspace();
-        assertEquals("1, i* 0,", ed.getString());
+    void testAddPartsSeparator() {
+        TEditor e = new TEditor();
+        e.addPartsSeparator();
+        assertEquals(TEditor.ZERO, e.read());
     }
 
     @Test
-    public void testBackspaceImag() {
-        TEditor ed = new TEditor();
-        ed.addImaginarySeparator();
-        ed.addDigit(5);
-        ed.backspace();
-        assertEquals("0, i* 0,", ed.getString()); // возвращение к imag=0
+    void testBackspace() {
+        TEditor e = new TEditor();
+        e.addDigit(3);
+        String before = e.read();
+        e.backspace();
+        assertEquals(before.substring(0, before.length() - 1), e.read());
     }
 
     @Test
-    public void testBackspaceRemoveSeparator() {
-        TEditor ed = new TEditor();
-        ed.addImaginarySeparator();
-        ed.backspace();         // удаляет imag → убирает разделитель → только real
-        assertEquals("0", ed.getString());
+    void testEditCommands() {
+        TEditor e = new TEditor();
+
+        e.edit(1); // sign real
+        assertTrue(e.read().startsWith("-"));
+
+        e.edit(2); // sign imag
+        assertTrue(e.read().contains(" -i "));
+
+        e.edit(3); // digit 1
+        assertTrue(e.read().endsWith("1"));
+
+        e.edit(4); // zero
+        assertTrue(e.read().endsWith("0"));
+
+        e.edit(5); // запятая
+        assertTrue(e.read().contains(","));
+
+        e.edit(6); // parts sep
+        assertTrue(e.hasPartsSeparator());
+
+        e.edit(7); // backspace
+        assertFalse(e.read().endsWith(","));
+
+        e.edit(8); // clear
+        assertEquals(TEditor.ZERO, e.read());
     }
 
     @Test
-    public void testClear() {
-        TEditor ed = new TEditor();
-        ed.addDigit(4);
-        ed.clear();
-        assertEquals("0, i* 0,", ed.getString());
+    void testEditInvalidCommand() {
+        TEditor e = new TEditor();
+        assertThrows(IllegalArgumentException.class, () -> e.edit(99));
     }
 }
+

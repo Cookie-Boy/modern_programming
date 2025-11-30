@@ -1,4 +1,6 @@
-package ru.sibsutis.modern;
+package ru.sibsutis.modern.lab3;
+
+import ru.sibsutis.modern.Lab;
 
 // Вариант 3
 public class Lab3 implements Lab {

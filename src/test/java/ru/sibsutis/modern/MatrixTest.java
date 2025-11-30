@@ -1,6 +1,7 @@
 package ru.sibsutis.modern;
 
 import org.junit.jupiter.api.Test;
+import ru.sibsutis.modern.lab5.Matrix;
 
 import static org.junit.jupiter.api.Assertions.*;
 

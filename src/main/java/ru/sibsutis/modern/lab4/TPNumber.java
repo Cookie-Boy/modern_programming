@@ -1,4 +1,4 @@
-package ru.sibsutis.modern;
+package ru.sibsutis.modern.lab4;
 
 public class TPNumber {
     private final double num;

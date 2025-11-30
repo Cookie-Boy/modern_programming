@@ -1,6 +1,7 @@
 package ru.sibsutis.modern;
 
 import org.junit.jupiter.api.Test;
+import ru.sibsutis.modern.lab2.Lab2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

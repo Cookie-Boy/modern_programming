@@ -1,4 +1,4 @@
-package ru.sibsutis.modern;
+package ru.sibsutis.modern.lab5;
 
 public class Matrix {
     private final int[][] data;
