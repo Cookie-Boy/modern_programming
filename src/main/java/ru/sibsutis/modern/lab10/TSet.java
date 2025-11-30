@@ -63,7 +63,6 @@ public class TSet<T extends Comparable<T>> {
         return data.size();
     }
 
-    // ---- Нумерация с 1 ----
     public T get(int j) {
         if (j < 1 || j > data.size()) {
             throw new IndexOutOfBoundsException("Index out of bounds: " + j);
